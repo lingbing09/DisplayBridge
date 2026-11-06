@@ -1,109 +1,95 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 724" width="100%" role="img">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 530" width="100%" role="img" font-family="-apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif">
   <title>DisplayBridge 功能流程图</title>
-  <desc>从打开软件到两种副屏连接/断开的主流程，以及后台常驻与休眠自动断开的闭环</desc>
+  <desc>DisplayBridge 三条并列连接链路（原生随航、Sunshine 串流副屏、OpenDisplay）及底部后台保障闭环。</desc>
   <defs>
-    <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M2 1L8 5L2 9" fill="none" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     </marker>
   </defs>
-  <style>
-    text{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif}
-    .b{font-size:13px;font-weight:400}
-    .w{font-size:13px;font-weight:500;fill:#FFFFFF}
-    .d{font-size:11px;font-weight:400}
-  </style>
 
-  <!-- connectors -->
-  <g fill="none" stroke="#6B7280" stroke-width="1.2" marker-end="url(#ar)">
-    <line x1="340" y1="60" x2="340" y2="84"/>
-    <polyline points="340,118 340,138 175,138"/>
-    <polyline points="340,118 340,138 505,138"/>
-    <line x1="175" y1="168" x2="175" y2="180"/>
-    <line x1="175" y1="212" x2="175" y2="264"/>
-    <line x1="143" y1="290" x2="135" y2="348"/>
-    <line x1="207" y1="290" x2="275" y2="348"/>
-    <line x1="135" y1="382" x2="168" y2="406"/>
-    <line x1="275" y1="382" x2="182" y2="406"/>
-    <line x1="175" y1="440" x2="175" y2="456"/>
-    <line x1="175" y1="488" x2="175" y2="504"/>
-
-    <line x1="505" y1="168" x2="505" y2="180"/>
-    <line x1="505" y1="212" x2="505" y2="228"/>
-    <line x1="505" y1="260" x2="505" y2="276"/>
-    <line x1="505" y1="308" x2="505" y2="318"/>
-    <line x1="473" y1="344" x2="465" y2="402"/>
-    <line x1="537" y1="344" x2="605" y2="402"/>
-    <line x1="465" y1="436" x2="498" y2="460"/>
-    <line x1="605" y1="436" x2="512" y2="460"/>
-    <line x1="505" y1="494" x2="505" y2="510"/>
-    <line x1="505" y1="542" x2="505" y2="558"/>
-
-    <line x1="325" y1="681" x2="247" y2="681"/>
-    <line x1="435" y1="681" x2="448" y2="681"/>
+  <g>
+    <rect x="240" y="24" width="200" height="48" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+    <text x="340" y="48" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#444441">打开 DisplayBridge</text>
   </g>
-  <!-- loop arrow -->
-  <path d="M545,702 C545,718 135,718 135,704" fill="none" stroke="#6B7280" stroke-width="1.2" marker-end="url(#ar)"/>
 
-  <!-- start -->
-  <rect x="230" y="24" width="220" height="36" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.6"/>
-  <text class="b" x="340" y="46" text-anchor="middle" fill="#3C3489">打开 DisplayBridge</text>
+  <path d="M340 72 L130 108" fill="none" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <path d="M340 72 L340 108" fill="none" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <path d="M340 72 L550 108" fill="none" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)"/>
 
-  <!-- main -->
-  <rect x="255" y="84" width="170" height="34" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.6"/>
-  <text class="b" x="340" y="105" text-anchor="middle" fill="#444441">主界面</text>
+  <g>
+    <rect x="40" y="112" width="180" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+    <text x="130" y="133" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#3C3489">连接随航</text>
+    <text x="130" y="152" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#534AB7">一键开关</text>
+    <rect x="40" y="178" width="180" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+    <text x="130" y="199" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#3C3489">选择目标设备</text>
+    <text x="130" y="218" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#534AB7">auto / core / ui</text>
+    <rect x="40" y="244" width="180" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+    <text x="130" y="265" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#3C3489">已连接</text>
+    <text x="130" y="284" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#534AB7">扩展桌面</text>
+    <rect x="40" y="310" width="180" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+    <text x="130" y="331" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#3C3489">断开随航</text>
+    <text x="130" y="350" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#534AB7">离线回退系统设置</text>
+  </g>
+  <path d="M130 168 L130 178" fill="none" stroke="#534AB7" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <path d="M130 234 L130 244" fill="none" stroke="#534AB7" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <path d="M130 300 L130 310" fill="none" stroke="#534AB7" stroke-width="1.5" marker-end="url(#arrow)"/>
 
-  <!-- lane cards -->
-  <rect x="40" y="140" width="270" height="28" rx="8" fill="#185FA5"/>
-  <text class="w" x="175" y="159" text-anchor="middle">① 原生随航 Sidecar</text>
-  <rect x="370" y="140" width="270" height="28" rx="8" fill="#0F6E56"/>
-  <text class="w" x="505" y="159" text-anchor="middle">② 串流副屏 Sunshine</text>
+  <g>
+    <rect x="250" y="112" width="180" height="56" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+    <text x="340" y="133" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#0C447C">连接副屏</text>
+    <text x="340" y="152" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#185FA5">Sunshine 串流</text>
+    <rect x="250" y="178" width="180" height="56" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+    <text x="340" y="199" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#0C447C">启动 Sunshine</text>
+    <text x="340" y="218" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#185FA5">+ BetterDisplay 虚拟屏</text>
+    <rect x="250" y="244" width="180" height="56" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+    <text x="340" y="265" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#0C447C">已连接</text>
+    <text x="340" y="284" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#185FA5">PIN 配对完成</text>
+    <rect x="250" y="310" width="180" height="56" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+    <text x="340" y="331" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#0C447C">断开</text>
+    <text x="340" y="350" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#185FA5">三者一起退出</text>
+  </g>
+  <path d="M340 168 L340 178" fill="none" stroke="#185FA5" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <path d="M340 234 L340 244" fill="none" stroke="#185FA5" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <path d="M340 300 L340 310" fill="none" stroke="#185FA5" stroke-width="1.5" marker-end="url(#arrow)"/>
 
-  <!-- left chain -->
-  <rect x="70" y="180" width="210" height="32" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
-  <text class="b" x="175" y="200" text-anchor="middle" fill="#0C447C">点「连接随航」</text>
-  <rect x="70" y="228" width="210" height="32" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
-  <text class="b" x="175" y="248" text-anchor="middle" fill="#0C447C">检测设备 / 连接方式</text>
-  <polygon points="175,264 207,290 175,316 143,290" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
-  <text class="d" x="175" y="294" text-anchor="middle" fill="#0C447C">接口可达?</text>
-  <rect x="70" y="350" width="130" height="32" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
-  <text class="b" x="135" y="370" text-anchor="middle" fill="#0C447C">系统接口连</text>
-  <rect x="210" y="350" width="130" height="32" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
-  <text class="b" x="275" y="370" text-anchor="middle" fill="#0C447C">回退设置</text>
-  <rect x="70" y="408" width="210" height="32" rx="8" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.5"/>
-  <text class="b" x="175" y="428" text-anchor="middle" fill="#27500A">已连接 ✓</text>
-  <rect x="70" y="456" width="210" height="32" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
-  <text class="b" x="175" y="476" text-anchor="middle" fill="#0C447C">点「断开随航」</text>
-  <rect x="70" y="504" width="210" height="32" rx="8" fill="#FCEBEB" stroke="#A32D2D" stroke-width="0.5"/>
-  <text class="b" x="175" y="524" text-anchor="middle" fill="#791F1F">已断开</text>
+  <g>
+    <rect x="460" y="112" width="180" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+    <text x="550" y="133" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#085041">连接 OpenDisplay</text>
+    <text x="550" y="152" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#0F6E56">App Store 下载</text>
+    <rect x="460" y="178" width="180" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+    <text x="550" y="199" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#085041">连接中</text>
+    <text x="550" y="218" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#0F6E56">进程 + 虚拟屏双条件</text>
+    <rect x="460" y="244" width="180" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+    <text x="550" y="265" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#085041">已连接</text>
+    <text x="550" y="284" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#0F6E56">虚拟屏建立</text>
+    <rect x="460" y="310" width="180" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+    <text x="550" y="331" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#085041">断开</text>
+    <text x="550" y="350" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#0F6E56">结束进程</text>
+  </g>
+  <path d="M550 168 L550 178" fill="none" stroke="#0F6E56" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <path d="M550 234 L550 244" fill="none" stroke="#0F6E56" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <path d="M550 300 L550 310" fill="none" stroke="#0F6E56" stroke-width="1.5" marker-end="url(#arrow)"/>
 
-  <!-- right chain -->
-  <rect x="400" y="180" width="210" height="32" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
-  <text class="b" x="505" y="200" text-anchor="middle" fill="#085041">点「连接副屏」</text>
-  <rect x="400" y="228" width="210" height="32" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
-  <text class="b" x="505" y="248" text-anchor="middle" fill="#085041">启动 Sunshine + 虚拟屏</text>
-  <rect x="400" y="276" width="210" height="32" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
-  <text class="b" x="505" y="296" text-anchor="middle" fill="#085041">BetterDisplay 接管</text>
-  <polygon points="505,318 537,344 505,370 473,344" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
-  <text class="d" x="505" y="348" text-anchor="middle" fill="#085041">需 PIN?</text>
-  <rect x="400" y="404" width="130" height="32" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
-  <text class="b" x="465" y="424" text-anchor="middle" fill="#085041">发 PIN 配对</text>
-  <rect x="540" y="404" width="130" height="32" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
-  <text class="b" x="605" y="424" text-anchor="middle" fill="#085041">已配对</text>
-  <rect x="400" y="462" width="210" height="32" rx="8" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.5"/>
-  <text class="b" x="505" y="482" text-anchor="middle" fill="#27500A">已连接 ✓</text>
-  <rect x="400" y="510" width="210" height="32" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
-  <text class="b" x="505" y="530" text-anchor="middle" fill="#085041">点「断开连接」</text>
-  <rect x="400" y="558" width="210" height="32" rx="8" fill="#FCEBEB" stroke="#A32D2D" stroke-width="0.5"/>
-  <text class="b" x="505" y="578" text-anchor="middle" fill="#791F1F">退出全部(含 BD)</text>
+  <text x="340" y="400" text-anchor="middle" font-size="12" fill="#5F5E5A">后台保障 · 对三种连接都生效</text>
 
-  <!-- bottom loop -->
-  <text class="b" x="340" y="636" text-anchor="middle" fill="#444441">后台常驻 &amp; 休眠自动断开（持续运行）</text>
-  <rect x="40" y="660" width="190" height="42" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
-  <text class="b" x="135" y="685" text-anchor="middle" fill="#633806">关窗口 = 隐藏常驻</text>
-  <rect x="245" y="660" width="190" height="42" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
-  <text class="b" x="340" y="680" text-anchor="middle" fill="#633806">休眠监听</text>
-  <text class="d" x="340" y="695" text-anchor="middle" fill="#633806">合盖/待机/睡眠</text>
-  <rect x="450" y="660" width="190" height="42" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
-  <text class="b" x="545" y="680" text-anchor="middle" fill="#633806">≥10/20/30分</text>
-  <text class="d" x="545" y="695" text-anchor="middle" fill="#633806">自动断开+僵尸清理</text>
+  <g>
+    <rect x="40" y="428" width="140" height="56" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+    <text x="110" y="449" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#633806">后台常驻</text>
+    <text x="110" y="468" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#854F0B">关窗口不退出</text>
+    <rect x="193" y="428" width="140" height="56" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+    <text x="263" y="449" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#633806">休眠监听</text>
+    <text x="263" y="468" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#854F0B">合盖 / 待机 / 睡眠</text>
+    <rect x="346" y="428" width="140" height="56" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+    <text x="416" y="449" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#633806">超时自动断开</text>
+    <text x="416" y="468" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#854F0B">10 / 20 / 30 分</text>
+    <rect x="499" y="428" width="140" height="56" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+    <text x="569" y="449" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#633806">唤醒自动重连</text>
+    <text x="569" y="468" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#854F0B">回到连接态</text>
+  </g>
+  <path d="M180 456 L193 456" fill="none" stroke="#854F0B" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <path d="M333 456 L346 456" fill="none" stroke="#854F0B" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <path d="M486 456 L499 456" fill="none" stroke="#854F0B" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <path d="M569 500 L115 500" fill="none" stroke="#854F0B" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+  <text x="340" y="518" text-anchor="middle" font-size="12" fill="#5F5E5A">持续循环 · 后台监控一直运行</text>
 </svg>

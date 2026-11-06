@@ -397,7 +397,7 @@ enum Dependency: String, CaseIterable, Identifiable {
         switch self {
         case .betterDisplay: return "免费版即可。安装后需创建名为「display」的虚拟屏（或到「串流」页改名称）"
         case .sunshine: return "安装后先手动打开一次完成初始化（设置网页账号密码），再回到这里"
-        case .openDisplay: return "开源 Sidecar 替代品；iPad 端需安装配套客户端"
+        case .openDisplay: return "开源 Sidecar 替代品；iPad 端在 App Store 搜索下载（适配 iOS 15+，无需越狱）"
         }
     }
     var isInstalled: Bool { DBPaths.appURL(bundleID: bundleID, appName: displayName) != nil }
@@ -1409,7 +1409,7 @@ struct SettingsView: View {
     var openDisplayTab: some View {
         VStack(alignment: .center, spacing: 12) {
             Text("OpenDisplay 副屏").font(.title3).bold().padding(.top, 16)
-            Text("开源 Sidecar 替代品，越狱 iPad 上稳定低延迟的扩展屏").font(.caption).foregroundColor(.secondary)
+            Text("开源 Sidecar 替代品，iPad 端 App Store 下载，低延迟扩展屏").font(.caption).foregroundColor(.secondary)
 
             Divider().padding(.vertical, 2)
 

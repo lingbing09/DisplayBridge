@@ -12,7 +12,7 @@
 |------|------|------|----------|
 | **原生随航** | macOS Sidecar | 无 | 同一 Apple ID、日常扩展桌面 |
 | **串流副屏** | BetterDisplay 虚拟屏 + Sunshine | BetterDisplay、Sunshine、iPad 装 Moonlight | 跨网络、低延迟、可自定义分辨率 |
-| **OpenDisplay** | OpenDisplay（OpenSidecar） | OpenDisplay、iPad 端客户端 | 越狱 iPad 上稳定低延迟的扩展屏 |
+| **OpenDisplay** | OpenDisplay（OpenSidecar） | OpenDisplay、iPad 端客户端 | 低延迟扩展屏（iPad 端 App Store 下载，无需越狱） |
 
 其他能力：
 
@@ -41,7 +41,7 @@
 ### OpenDisplay
 
 1. **[OpenDisplay（OpenSidecar）](https://github.com/peetzweg/OpenSidecar)** — Mac 端。
-2. iPad 端需安装配套客户端，且设备需已越狱。
+2. iPad 端在 **App Store 搜索 OpenDisplay** 下载客户端（无需越狱，适配 iOS/iPadOS 15 及以上）。
 
 ## 安装
 
@@ -160,7 +160,7 @@ build_dist.sh                    构建与分发打包
 
 - 发布包未做 Apple 公证，首次打开需右键 → 打开。
 - Sunshine 的分辨率 / 刷新率以虚拟屏和 Sunshine 配置为准，App 里的下拉选项是给后续版本预留的。
-- OpenDisplay 需要越狱 iPad，不是所有用户都适用。
+- OpenDisplay 的 iPad 端客户端在 App Store 下载，适配 iOS/iPadOS 15 及以上系统。
 
 ## 许可
 

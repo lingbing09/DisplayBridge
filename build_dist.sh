@@ -94,7 +94,7 @@ DisplayBridge — Mac 一键连接 iPad 副屏
 极简小窗工具，三种连接方式：
 · 原生随航（Sidecar）：Mac 自带，无需安装任何第三方软件
 · 串流副屏（BetterDisplay + Sunshine）：跨网络、低延迟，iPad 端用 Moonlight 连接
-· OpenDisplay：越狱 iPad 上稳定低延迟的扩展屏方案
+· OpenDisplay：低延迟扩展屏方案（iPad 端 App Store 下载，无需越狱）
 
 【安装】
 1. 把 DisplayBridge.app 拖入「应用程序」文件夹
@@ -110,7 +110,7 @@ DisplayBridge — Mac 一键连接 iPad 副屏
   - iPad 端 Moonlight（App Store）
 · 用 OpenDisplay：
   - OpenDisplay    https://github.com/peetzweg/OpenSidecar
-  - iPad 端需越狱并安装配套客户端
+  - iPad 端 App Store 搜索 OpenDisplay（适配 iOS 15+，无需越狱）
 
 【首次配置：串流副屏】
 1. BetterDisplay 新建虚拟显示器，名称保持默认 display
