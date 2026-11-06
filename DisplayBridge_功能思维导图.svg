@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 914" width="100%" role="img">
+  <title>DisplayBridge 功能思维导图</title>
+  <desc>DisplayBridge（Mac 一键连接 iPad 副屏）的两大连接模式、智能连接保障、休眠自动断开、后台常驻与设置中心总览</desc>
+  <style>
+    text{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif}
+    .mt{font-size:14px;font-weight:500}
+    .st{font-size:12px;font-weight:400}
+    .ht{font-size:13px;font-weight:500}
+    .bd{font-size:13px;font-weight:400}
+  </style>
+
+  <!-- 左侧总线 -->
+  <line x1="28" y1="51" x2="28" y2="884" stroke="#888780" stroke-width="1.5"/>
+  <line x1="28" y1="51" x2="44" y2="51" stroke="#888780" stroke-width="1.5"/>
+
+  <!-- 根节点 -->
+  <rect x="44" y="24" width="250" height="54" rx="12" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+  <text class="mt" x="169" y="46" text-anchor="middle" fill="#3C3489">DisplayBridge</text>
+  <text class="st" x="169" y="66" text-anchor="middle" fill="#534AB7">Mac 一键连接 iPad 副屏</text>
+
+  <!-- G1 原生随航 -->
+  <line x1="28" y1="110" x2="44" y2="110" stroke="#888780" stroke-width="1.5"/>
+  <rect x="44" y="96" width="596" height="130" rx="12" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+  <path d="M44,108 Q44,96 56,96 L640,96 Q652,96 652,108 L652,124 L44,124 Z" fill="#185FA5"/>
+  <text class="ht" x="60" y="114" fill="#FFFFFF">① 原生随航 Sidecar</text>
+  <circle cx="62" cy="140" r="3" fill="#378ADD"/><text class="bd" x="76" y="144" fill="#1F2937">一键连接 / 断开（按钮随状态切换）</text>
+  <circle cx="62" cy="162" r="3" fill="#378ADD"/><text class="bd" x="76" y="166" fill="#1F2937">目标设备：自动检测 或 指定设备</text>
+  <circle cx="62" cy="184" r="3" fill="#378ADD"/><text class="bd" x="76" y="188" fill="#1F2937">连接方式：自动 / 仅系统接口 / 系统设置界面</text>
+  <circle cx="62" cy="206" r="3" fill="#378ADD"/><text class="bd" x="76" y="210" fill="#1F2937">离线自动回退到系统设置界面</text>
+
+  <!-- G2 串流副屏 -->
+  <line x1="28" y1="258" x2="44" y2="258" stroke="#888780" stroke-width="1.5"/>
+  <rect x="44" y="244" width="596" height="174" rx="12" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+  <path d="M44,256 Q44,244 56,244 L640,244 Q652,244 652,256 L652,272 L44,272 Z" fill="#0F6E56"/>
+  <text class="ht" x="60" y="262" fill="#FFFFFF">② 串流副屏 Sunshine + BetterDisplay + 虚拟屏</text>
+  <circle cx="62" cy="288" r="3" fill="#1D9E75"/><text class="bd" x="76" y="292" fill="#1F2937">一键连接 / 断开（接收端用 Moonlight）</text>
+  <circle cx="62" cy="310" r="3" fill="#1D9E75"/><text class="bd" x="76" y="314" fill="#1F2937">连接即启动 Sunshine + 创建虚拟屏</text>
+  <circle cx="62" cy="332" r="3" fill="#1D9E75"/><text class="bd" x="76" y="336" fill="#1F2937">断开默认一起退出（Sunshine / 虚拟屏 / BD）</text>
+  <circle cx="62" cy="354" r="3" fill="#1D9E75"/><text class="bd" x="76" y="358" fill="#1F2937">参数配置：分辨率 · 刷新率 · 帧率</text>
+  <circle cx="62" cy="376" r="3" fill="#1D9E75"/><text class="bd" x="76" y="380" fill="#1F2937">PIN 配对码 + 已配对设备管理</text>
+  <circle cx="62" cy="398" r="3" fill="#1D9E75"/><text class="bd" x="76" y="402" fill="#1F2937">状态显示：设备名 / 显示 ID</text>
+
+  <!-- G3 智能连接保障 -->
+  <line x1="28" y1="450" x2="44" y2="450" stroke="#888780" stroke-width="1.5"/>
+  <rect x="44" y="436" width="596" height="130" rx="12" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.5"/>
+  <path d="M44,448 Q44,436 56,436 L640,436 Q652,436 652,448 L652,464 L44,464 Z" fill="#3B6D11"/>
+  <text class="ht" x="60" y="454" fill="#FFFFFF">③ 智能连接保障</text>
+  <circle cx="62" cy="480" r="3" fill="#639922"/><text class="bd" x="76" y="484" fill="#1F2937">虚拟屏检测（脚本退出码判定）</text>
+  <circle cx="62" cy="502" r="3" fill="#639922"/><text class="bd" x="76" y="506" fill="#1F2937">僵尸态自动清理（只开 Sunshine 无虚拟屏 → 自动断开）</text>
+  <circle cx="62" cy="524" r="3" fill="#639922"/><text class="bd" x="76" y="528" fill="#1F2937">窗口重开自动重检真实状态（避免显示旧状态）</text>
+  <circle cx="62" cy="546" r="3" fill="#639922"/><text class="bd" x="76" y="550" fill="#1F2937">断线自动重试</text>
+
+  <!-- G4 休眠自动断开 -->
+  <line x1="28" y1="598" x2="44" y2="598" stroke="#888780" stroke-width="1.5"/>
+  <rect x="44" y="584" width="596" height="108" rx="12" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+  <path d="M44,596 Q44,584 56,584 L640,584 Q652,584 652,596 L652,612 L44,612 Z" fill="#854F0B"/>
+  <text class="ht" x="60" y="602" fill="#FFFFFF">④ 休眠自动断开</text>
+  <circle cx="62" cy="628" r="3" fill="#BA7517"/><text class="bd" x="76" y="632" fill="#1F2937">触发：合盖 / 显示器待机 / 系统睡眠</text>
+  <circle cx="62" cy="650" r="3" fill="#BA7517"/><text class="bd" x="76" y="654" fill="#1F2937">档位：10 / 20 / 30 分钟（默认 30）</text>
+  <circle cx="62" cy="672" r="3" fill="#BA7517"/><text class="bd" x="76" y="676" fill="#1F2937">开关可关闭</text>
+
+  <!-- G5 设置中心 -->
+  <line x1="28" y1="724" x2="44" y2="724" stroke="#888780" stroke-width="1.5"/>
+  <rect x="44" y="710" width="596" height="130" rx="12" fill="#FBEAF0" stroke="#993556" stroke-width="0.5"/>
+  <path d="M44,722 Q44,710 56,710 L640,710 Q652,710 652,722 L652,738 L44,738 Z" fill="#993556"/>
+  <text class="ht" x="60" y="728" fill="#FFFFFF">⑤ 设置中心</text>
+  <circle cx="62" cy="754" r="3" fill="#D4537E"/><text class="bd" x="76" y="758" fill="#1F2937">随航：目标设备 / 连接方式</text>
+  <circle cx="62" cy="776" r="3" fill="#D4537E"/><text class="bd" x="76" y="780" fill="#1F2937">串流：参数 / BetterDisplay 驻留提速</text>
+  <circle cx="62" cy="798" r="3" fill="#D4537E"/><text class="bd" x="76" y="802" fill="#1F2937">休眠：开关 / 档位</text>
+  <circle cx="62" cy="820" r="3" fill="#D4537E"/><text class="bd" x="76" y="824" fill="#1F2937">配对：配对码 / 设备列表 / 测试连接</text>
+
+  <!-- 后台常驻注记 -->
+  <line x1="28" y1="792" x2="44" y2="792" stroke="#888780" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text class="st" x="76" y="796" fill="#444441">注：关闭窗口 = 隐藏不退出；登录时自动后台启动（LaunchAgent）</text>
+
+  <!-- footer 已移除 -->
+  <rect x="44" y="858" width="596" height="36" rx="12" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+  <text class="st" x="342" y="880" text-anchor="middle" fill="#444441">已移除 ⇧1 / ⇧2 全局快捷键（按用户要求删除）</text>
+</svg>

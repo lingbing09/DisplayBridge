@@ -1,0 +1,28 @@
+# macOS
+.DS_Store
+._*
+
+# 构建产物
+dist/
+*.app/
+*.dmg
+
+# 编译生成的二进制（build_dist.sh 会从 .swift 源码重新编译）
+/get_virtual_display
+/sidecar_toggle
+
+# 本地工具与 IDE
+.workbuddy/
+.vscode/
+.idea/
+*.xcodeproj/
+*.xcworkspace/
+
+# 设计稿与截图（体积大，不随仓库分发；AppIcon.icns 保留用于构建）
+icon-*.png
+iPad副屏-*.png
+
+# 临时文件
+*.tmp
+*.bak
+*.log
