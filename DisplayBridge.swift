@@ -499,9 +499,9 @@ struct ContentView: View {
     @State private var openDisplayState: OpenDisplayState = .starting
     @State private var openDisplayConnectStart: Date? = nil   // 连接开始时间（用于 .connecting 超时判定）
 
-    enum BridgeState { case starting, idle, connecting, connected, error }
+    enum BridgeState { case starting, idle, processOnly, connecting, connected, error }  // processOnly = Sunshine/BetterDisplay 在后台运行但未连接（虚拟屏未建立）
     enum SidecarState { case starting, disconnected, connected }
-    enum OpenDisplayState { case starting, stopped, connecting, running }
+    enum OpenDisplayState { case starting, stopped, idle, connecting, running }  // idle = 进程在后台运行但未连接（虚拟屏未建立）
 
     var anyConnected: Bool { bridgeState == .connected || sidecarState == .connected || openDisplayState == .running }
 
@@ -663,6 +663,7 @@ struct ContentView: View {
         let (l, c, i): (String, Color, String) = switch openDisplayState {
         case .starting: ("检测中", Color.secondary.opacity(0.4), "hourglass")
         case .stopped: ("未运行", Color.switchOff, "circle")
+        case .idle: ("后台运行", Color.accentOrange, "circle.dashed")
         case .connecting: ("连接中", Color.accentOrange, "arrow.triangle.2.circlepath")
         case .running: ("运行中", Color.accentTeal, "checkmark.circle.fill")
         }
@@ -673,6 +674,7 @@ struct ContentView: View {
         switch openDisplayState {
         case .starting: HStack(spacing: 4) { ProgressView().controlSize(.small).scaleEffect(0.6); Text("检测中").font(.system(size: 10)).foregroundColor(.secondary) }.frame(height: 32)
         case .stopped: Button("连接 OpenDisplay") { toggleOpenDisplay() }.buttonStyle(RoundButtonStyle(color: .accentTeal, width: 128))
+        case .idle: Button("退出 OpenDisplay") { quitOpenDisplay() }.buttonStyle(RoundButtonStyle(color: .accentRed, width: 128))
         case .connecting: HStack(spacing: 6) { ProgressView().controlSize(.small).scaleEffect(0.7); Text("连接中...").font(.system(size: 11, weight: .semibold)).foregroundColor(.white) }.frame(width: 128, height: 32).background(RoundedRectangle(cornerRadius: 16).fill(Color.accentOrange))
         case .running: Button("断开 OpenDisplay") { toggleOpenDisplay() }.buttonStyle(RoundButtonStyle(color: .accentRed, width: 128))
         }
@@ -682,6 +684,7 @@ struct ContentView: View {
         let (l, c, i): (String, Color, String) = switch bridgeState {
         case .starting: ("检测中", Color.secondary.opacity(0.4), "hourglass")
         case .idle: ("未连接", Color.switchOff, "circle")
+        case .processOnly: ("后台运行", Color.accentOrange, "circle.dashed")
         case .connecting: ("连接中", Color.accentOrange, "arrow.triangle.2.circlepath")
         case .connected: ("已连接", Color.accentGreen, "checkmark.circle.fill")
         case .error: ("失败", Color.accentRed, "xmark.circle.fill")
@@ -693,6 +696,7 @@ struct ContentView: View {
         switch bridgeState {
         case .starting: HStack(spacing: 4) { ProgressView().controlSize(.small).scaleEffect(0.6); Text("检测中").font(.system(size: 10)).foregroundColor(.secondary) }.frame(height: 32)
         case .idle: Button("连接副屏") { startConnecting() }.buttonStyle(RoundButtonStyle(color: .accentBlue, width: 120))
+        case .processOnly: Button("退出软件") { quitBridge() }.buttonStyle(RoundButtonStyle(color: .accentRed, width: 120))
         case .connecting: HStack(spacing: 6) { ProgressView().controlSize(.small).scaleEffect(0.7); Text("连接中...").font(.system(size: 11, weight: .semibold)).foregroundColor(.white) }.frame(width: 120, height: 32).background(RoundedRectangle(cornerRadius: 16).fill(Color.accentOrange))
         case .connected: Button("断开连接") { disconnect() }.buttonStyle(RoundButtonStyle(color: .accentRed, width: 120))
         case .error: Button("重试") { errorMsg = ""; startConnecting() }.buttonStyle(RoundButtonStyle(color: .accentBlue, width: 120))
@@ -801,6 +805,22 @@ struct ContentView: View {
         }
     }
 
+    // ── 退出 Sunshine / BetterDisplay 软件（后台运行但未连接时，用这个把它们彻底退出）──
+    func quitBridge() {
+        displayID = ""; streamClientName = ""; bridgeState = .idle; statusHint = "Sunshine / BetterDisplay 已退出"
+        DispatchQueue.global(qos: .userInitiated).async {
+            let p = Process(); p.launchPath = "/bin/bash"
+            p.arguments = [DBPaths.tool("ipad_sidecar_stop_silent.sh")]
+            // KEEP_BD=0：连 BetterDisplay 一起彻底退出（用户要的是「退出软件」，不是保留常驻）
+            var env = ProcessInfo.processInfo.environment
+            env["KEEP_BD"] = "0"
+            env["VD_NAME"] = DBPaths.virtualDisplayName
+            p.environment = env
+            p.standardOutput = Pipe(); p.standardError = Pipe()
+            try? p.run(); p.waitUntilExit()
+        }
+    }
+
     // ── OpenDisplay 连接 / 断开（主窗口第三列按钮）──
     func toggleOpenDisplay() {
         if openDisplayState == .running {
@@ -835,6 +855,16 @@ struct ContentView: View {
         }
     }
 
+    // ── 退出 OpenDisplay 软件（后台运行但未连接时，用它彻底退出进程）──
+    func quitOpenDisplay() {
+        openDisplayState = .stopped
+        openDisplayConnectStart = nil
+        statusHint = "OpenDisplay 已退出"
+        DispatchQueue.global(qos: .userInitiated).async {
+            SleepWatcher.stopOpenDisplay()
+        }
+    }
+
     func checkOpenDisplayStatus() {
         DispatchQueue.global().async {
             let running = SleepWatcher.isOpenDisplayRunning()
@@ -848,12 +878,14 @@ struct ContentView: View {
                 } else if self.openDisplayState == .connecting {
                     // 连接中但还没连上：保持连接中，等后续重检；超时（15s）才算失败
                     if let start = self.openDisplayConnectStart, Date().timeIntervalSince(start) >= 15 {
-                        self.openDisplayState = .stopped
                         self.openDisplayConnectStart = nil
+                        // 超时：进程起来了但虚拟屏没建立 → 后台运行（未连接），可退出重试
+                        self.openDisplayState = running ? .idle : .stopped
                         self.statusHint = "OpenDisplay 连接失败，请重试"
                     }
                 } else {
-                    self.openDisplayState = .stopped
+                    // 非连接中：进程在但虚拟屏没建立 → 后台运行（未连接），让用户手动退出
+                    self.openDisplayState = running ? .idle : .stopped
                 }
             }
         }
@@ -1050,6 +1082,9 @@ struct ContentView: View {
             let sg = Process(); sg.launchPath = "/usr/bin/pgrep"; sg.arguments = ["-x", "Sunshine"]
             sg.standardError = FileHandle.nullDevice; sg.standardOutput = Pipe(); sg.launch(); sg.waitUntilExit()
             let sunRunning = sg.terminationStatus == 0
+            let bg = Process(); bg.launchPath = "/usr/bin/pgrep"; bg.arguments = ["-x", "BetterDisplay"]
+            bg.standardError = FileHandle.nullDevice; bg.standardOutput = Pipe(); bg.launch(); bg.waitUntilExit()
+            let bdRunning = bg.terminationStatus == 0
             let vdOpen = Self.isVirtualDisplayOpen()
             let sidecar = Self.detectSidecar()
             let odRunning = SleepWatcher.isOpenDisplayRunning()
@@ -1059,24 +1094,26 @@ struct ContentView: View {
                 if self.bridgeState != .connecting {
                     if sunRunning && vdOpen {
                         self.bridgeState = .connected; self.fetchDisplayID(); self.fetchStreamClientName()
+                    } else if sunRunning || bdRunning {
+                        // Sunshine / BetterDisplay 进程在但虚拟屏没建立 = 后台运行（未连接），
+                        // 显示 processOnly 让用户手动「退出软件」，不再自动清理残留。
+                        self.bridgeState = .processOnly
                     } else {
-                        // Sunshine 没跑 → 未连接
-                        // Sunshine 残留但虚拟屏没了（休眠/合盖唤醒后的僵尸态）→ 也算未连接，并后台清理残留
-                        if sunRunning && !vdOpen { Self.cleanupStaleSunshine() }
                         self.bridgeState = .idle
                     }
                 }
                 if let (_, name) = sidecar { self.sidecarState = .connected; self.sidecarName = name } else { self.sidecarState = .disconnected }
                 // OpenDisplay：进程 + 虚拟屏「双条件」才算真正运行。
-                // 自动断开/合盖后可能出现「进程残留但虚拟屏已消失」的僵尸态，或「进程已退但虚拟屏残留」——
-                // 两种情况都不能算「运行中」，一律显示待机；僵尸进程顺手清掉，残留虚拟屏留给下次连接时重建。
+                // 「进程在但虚拟屏未建立」= 后台运行（未连接），显示 idle 让用户手动「退出 OpenDisplay」；
+                // 「进程不在」= 未运行（stopped）。不再自动清理残留进程，交给用户控制。
                 if odRunning && odScreen {
                     self.openDisplayState = .running
                     self.openDisplayConnectStart = nil
                 } else if self.openDisplayState == .connecting {
                     // 连接中（虚拟屏还没建立）：不打断，交给 checkOpenDisplayStatus 的分档重检/超时处理
+                } else if odRunning {
+                    self.openDisplayState = .idle
                 } else {
-                    if odRunning && !odScreen { SleepWatcher.stopOpenDisplay() }
                     self.openDisplayState = .stopped
                 }
             }

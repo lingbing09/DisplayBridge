@@ -26,3 +26,8 @@ iPad副屏-*.png
 *.tmp
 *.bak
 *.log
+
+# 软著申请材料（个人申请材料，不随公开仓库分发）
+/软著申请包/
+/gen_source_pdf.py
+/gen_manual_pdf.py
